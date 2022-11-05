@@ -1,5 +1,29 @@
 {
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "json.format.enable": false,
+  "[markdown]": {
+    "editor.unicodeHighlight.ambiguousCharacters": false,
+    "editor.unicodeHighlight.invisibleCharacters": false,
+    "editor.wordWrap": "on",
+    // "editor.quickSuggestions": false,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true,
+  "editor.rulers": [
+    111
+  ],
+  "javascript.format.enable": false,
+  "javascript.suggest.completeFunctionCalls": true,
+  "javascript.validate.enable": false,
+  "typescript.format.enable": false,
+  "typescript.suggest.completeFunctionCalls": true,
   "cSpell.ignoreWords": [
     "typecheck"
-  ]
+  ],
 }
