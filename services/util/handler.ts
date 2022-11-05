@@ -1,26 +1,29 @@
-import { APIGatewayProxyHandlerV2, APIGatewayProxyResultV2 } from 'aws-lambda';
+import {
+  APIGatewayProxyHandlerV2,
+  APIGatewayProxyStructuredResultV2,
+} from 'aws-lambda';
 
 type LambdaArgs = Parameters<APIGatewayProxyHandlerV2>;
-type LambdaFn<Result> = (
+export type LambdaFn = (
   event: LambdaArgs[0],
   context: LambdaArgs[1]
-) => Promise<Result>;
+) => Promise<APIGatewayProxyStructuredResultV2>;
 
-export function created(data: any): APIGatewayProxyResultV2 {
+export function created(data: any): APIGatewayProxyStructuredResultV2 {
   return {
     statusCode: 201,
     body: JSON.stringify(data),
   };
 }
 
-export function ok(data: any): APIGatewayProxyResultV2 {
+export function ok(data: any): APIGatewayProxyStructuredResultV2 {
   return {
     statusCode: 200,
     body: JSON.stringify(data),
   };
 }
 
-function internalError(error: Error): APIGatewayProxyResultV2 {
+function internalError(error: Error): APIGatewayProxyStructuredResultV2 {
   return {
     statusCode: 500,
     body: JSON.stringify({ error: error.message }),
@@ -28,8 +31,8 @@ function internalError(error: Error): APIGatewayProxyResultV2 {
 }
 
 export default function (
-  lambda: LambdaFn<APIGatewayProxyResultV2>
-): APIGatewayProxyHandlerV2<APIGatewayProxyResultV2> {
+  lambda: LambdaFn
+): APIGatewayProxyHandlerV2<APIGatewayProxyStructuredResultV2> {
   return async function (event, context) {
     try {
       return await lambda(event, context);

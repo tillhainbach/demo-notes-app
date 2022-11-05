@@ -1,6 +1,6 @@
 import * as uuid from 'uuid';
-import handler, { created, ok } from '../utils/handler';
-import dynamoDb from '../utils/dynamodb';
+import handler, { created, ok } from '../util/handler';
+import dynamoDb from '../util/dynamodb';
 import AWS from 'aws-sdk';
 import { APIGatewayEvent, APIGatewayProxyResult } from 'aws-lambda';
 
