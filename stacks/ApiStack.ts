@@ -18,7 +18,7 @@ export function ApiStack({ stack, app }: StackFnProps) {
       'GET /notes': 'functions/list.main',
       'POST /notes': 'functions/create.main',
       'GET /notes/{id}': 'functions/get.main',
-      'PUT /notes/{id}': 'function/update.main',
+      'PUT /notes/{id}': 'functions/update.main',
     },
   });
 
