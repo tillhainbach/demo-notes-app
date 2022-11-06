@@ -15,9 +15,10 @@ export function ApiStack({ stack, app }: StackFnProps) {
       },
     },
     routes: {
+      'GET /notes': 'functions/list.main',
       'POST /notes': 'functions/create.main',
       'GET /notes/{id}': 'functions/get.main',
-      'GET /notes': 'functions/list.main',
+      'PUT /notes/{id}': 'function/update.main',
     },
   });
 
