@@ -11,7 +11,9 @@
     "editor.unicodeHighlight.ambiguousCharacters": false,
     "editor.unicodeHighlight.invisibleCharacters": false,
     "editor.wordWrap": "on",
-    // "editor.quickSuggestions": false,
+    "editor.quickSuggestions": {
+      "strings": "on"
+    },
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.formatOnSave": true,
@@ -25,6 +27,7 @@
   "typescript.suggest.completeFunctionCalls": true,
   "cSpell.ignoreWords": [
     "esnext",
+    "signup",
     "typecheck"
   ],
 }
