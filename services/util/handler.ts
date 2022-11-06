@@ -16,6 +16,12 @@ export function created(data: any): APIGatewayProxyStructuredResultV2 {
   };
 }
 
+export function notContent(): APIGatewayProxyStructuredResultV2 {
+  return {
+    statusCode: 204,
+  };
+}
+
 export function ok(data: any): APIGatewayProxyStructuredResultV2 {
   return {
     statusCode: 200,
