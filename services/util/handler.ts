@@ -41,15 +41,29 @@ export function getUserId(event: LambdaArgs[0]): string {
     .identityId;
 }
 
+function withCorsHeaders(handler: LambdaFn): LambdaFn {
+  return async (event, context) => {
+    const response = await handler(event, context);
+    return {
+      ...response,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+        ...response.headers,
+      },
+    };
+  };
+}
+
 export default function (
   lambda: LambdaFn
 ): APIGatewayProxyHandlerV2<APIGatewayProxyStructuredResultV2> {
-  return async function (event, context) {
+  return withCorsHeaders(async function (event, context) {
     try {
       return await lambda(event, context);
     } catch (error) {
       console.error(error);
       return internalError(error as Error);
     }
-  };
+  });
 }
