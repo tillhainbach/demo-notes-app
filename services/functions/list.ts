@@ -1,12 +1,12 @@
-import handler, { ok } from '../util/handler';
+import handler, { getUserId, ok } from '../util/handler';
 import dynamoDb from '../util/dynamodb';
 
-export const main = handler(async () => {
+export const main = handler(async (event) => {
   const params = {
     TableName: process.env.TABLE_NAME!,
     KeyConditionExpression: 'userId = :userId',
     ExpressionAttributeValues: {
-      ':userId': '123',
+      ':userId': getUserId(event),
     },
   };
 

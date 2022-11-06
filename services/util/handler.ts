@@ -36,6 +36,11 @@ function internalError(error: Error): APIGatewayProxyStructuredResultV2 {
   };
 }
 
+export function getUserId(event: LambdaArgs[0]): string {
+  return (event.requestContext as any).authorizer.iam.cognitoIdentity
+    .identityId;
+}
+
 export default function (
   lambda: LambdaFn
 ): APIGatewayProxyHandlerV2<APIGatewayProxyStructuredResultV2> {

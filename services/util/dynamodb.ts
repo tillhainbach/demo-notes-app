@@ -6,7 +6,10 @@ export default {
   get: (params: AWS.DynamoDB.DocumentClient.GetItemInput) =>
     client.get(params).promise(),
   put: (params: AWS.DynamoDB.DocumentClient.PutItemInput) =>
-    client.put(params).promise(),
+    client
+      .put(params)
+      .promise()
+      .then(() => params),
   query: (params: AWS.DynamoDB.DocumentClient.QueryInput) =>
     client.query(params).promise(),
   update: (params: AWS.DynamoDB.DocumentClient.UpdateItemInput) =>
