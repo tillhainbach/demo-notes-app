@@ -4,6 +4,8 @@ import { useAppContext } from '../lib/contextLib';
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import LoaderButton from '../components/LoaderButton';
+import { Auth } from 'aws-amplify';
+import { onError } from '../lib/errorLib';
 
 export default function Signup() {
   const [fields, handleFieldChange] = useFormFields({
@@ -14,7 +16,7 @@ export default function Signup() {
   });
 
   const navigate = useNavigate();
-  const [newUser, setNewUser] = useState<string | null>(null);
+  const [newUser, setNewUser] = useState<Awaited<any> | null>(null);
   const { userHasAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,18 +33,46 @@ export default function Signup() {
   const handleSubmit: React.FormEventHandler = async (event) => {
     event.preventDefault();
     setIsLoading(true);
-    setNewUser('test');
-    setIsLoading(false);
+    try {
+      const newUser = await Auth.signUp({
+        username: fields.email,
+        password: fields.password,
+      });
+      setIsLoading(false);
+      setNewUser(newUser);
+    } catch (error) {
+      if (error instanceof Error && error.name === 'UsernameExistsException') {
+        try {
+          await Auth.resendSignUp(fields.email);
+          setNewUser({});
+        } catch (error) {
+          onError(error);
+        }
+      } else {
+        onError(error);
+      }
+
+      setIsLoading(false);
+    }
   };
 
   const handleConfirmationSubmit: React.FormEventHandler = async (event) => {
     event.preventDefault();
-    setIsLoading(false);
+    setIsLoading(true);
+    try {
+      await Auth.confirmSignUp(fields.email, fields.confirmationCode);
+      await Auth.signIn(fields.email, fields.password);
+      userHasAuthenticated(true);
+      navigate('/');
+    } catch (error) {
+      onError(error);
+      setIsLoading(false);
+    }
   };
 
   const renderConfirmationForm = () => {
     return (
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleConfirmationSubmit}>
         <Form.Group controlId="confirmationCode">
           <Form.Label>Confirmation Code</Form.Label>
           <Form.Control
