@@ -4,7 +4,7 @@ import { Api } from '../lib/api';
 import { s3Download } from '../lib/awsLib';
 import { onError } from '../lib/errorLib';
 
-export default function Notes() {
+export default function Note() {
   const file = useRef(null);
   const { id } = useParams();
   const navigate = useNavigate();
