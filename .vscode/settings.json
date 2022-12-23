@@ -24,7 +24,7 @@
   "javascript.suggest.completeFunctionCalls": true,
   "javascript.validate.enable": false,
   "typescript.format.enable": false,
-  "typescript.suggest.completeFunctionCalls": true,
+  "typescript.suggest.completeFunctionCalls": false,
   "cSpell.ignoreWords": [
     "esnext",
     "signup",
